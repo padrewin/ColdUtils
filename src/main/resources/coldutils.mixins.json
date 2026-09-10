@@ -1,0 +1,8 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.padrewin.coldutils.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": ["EntityEspMixin", "PlayerNameMixin", "NameColorMixin"],
+  "injectors": { "defaultRequire": 1 }
+}
