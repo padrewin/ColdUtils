@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "chatpolish",
+  "version": "1.1.0",
+  "name": "Chat Polish",
+  "description": "Capitalizes the first letter and adds a final period to outgoing chat.",
+  "authors": ["padrewin"],
+  "contact": {
+    "homepage": "https://github.com/padrewin/ChatPolish",
+    "issues": "https://github.com/padrewin/ChatPolish"
+  },
+  "environment": "client",
+  "icon": "assets/chatpolish/icon.png",
+  "languageAdapters": { "chatpolish-menu": "dev.padrewin.chatpolish.MenuAdapter" },
+  "entrypoints": {
+    "client": ["dev.padrewin.chatpolish.ChatPolish"],
+    "modmenu": [{ "adapter": "chatpolish-menu", "value": "dev.padrewin.chatpolish.MenuAdapter" }]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": ["1.21.11", ">=26 <27"],
+    "java": ">=21",
+    "fabric-api-base": "*",
+    "fabric-message-api-v1": "*",
+    "cloth-config": "*",
+    "modmenu": "*"
+  }
+}
