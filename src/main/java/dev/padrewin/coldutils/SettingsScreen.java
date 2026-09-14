@@ -26,9 +26,9 @@ final class SettingsScreen {
                 call(category, "addEntry", call(entry, "build"));
             }
             Object espCategory = call(builder, "getOrCreateCategory", text("Player ESP"));
-            boolean[] esp = {current.espEnabled(), current.espNames(), current.espInvisibleOnly()};
-            boolean[] defaults = {false, false, true};
-            String[] espLabels = {"Enable Player ESP", "Enable Player Names", "Only invisible players"};
+            boolean[] esp = {current.espEnabled(), current.espNames(), current.espInvisibleOnly(), current.preserveServerNameColors()};
+            boolean[] defaults = {false, false, true, true};
+            String[] espLabels = {"Enable Player ESP", "Enable Player Names", "Only invisible players", "Keep server name colors"};
             for (int i = 0; i < esp.length; i++) {
                 final int index = i;
                 Object entry = call(entries, "startBooleanToggle", text(espLabels[i]), esp[i]);
@@ -41,7 +41,7 @@ final class SettingsScreen {
             call(color, "setDefaultValue", ColdUtilsSettings.DEFAULT.espColor());
             call(color, "setSaveConsumer", (Consumer<Integer>) value -> appearance[0] = value & 0xFFFFFF);
             call(espCategory, "addEntry", call(color, "build"));
-            Object nameColor = call(entries, "startColorField", text("Player name color"), appearance[2]);
+            Object nameColor = call(entries, "startColorField", text("Player name color (server colors OFF)"), appearance[2]);
             call(nameColor, "setDefaultValue", ColdUtilsSettings.DEFAULT.nameColor());
             call(nameColor, "setSaveConsumer", (Consumer<Integer>) value -> appearance[2] = value & 0xFFFFFF);
             call(espCategory, "addEntry", call(nameColor, "build"));
@@ -51,7 +51,7 @@ final class SettingsScreen {
             call(espCategory, "addEntry", call(range, "build"));
             call(builder, "setSavingRunnable", (Runnable) () -> ColdUtils.saveSettings(
                     new ColdUtilsSettings(draft[0], draft[1], draft[2], esp[0], esp[1], esp[2],
-                            appearance[0], appearance[1], appearance[2])));
+                            appearance[0], appearance[1], appearance[2], esp[3])));
             return call(builder, "build");
         } catch (ReflectiveOperationException e) {
             throw new IllegalStateException("Cannot open ColdUtils settings. Check Cloth Config compatibility.", e);

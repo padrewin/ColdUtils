@@ -32,6 +32,7 @@ public final class ColdUtils implements ClientModInitializer {
             System.getLogger("ColdUtils").log(System.Logger.Level.WARNING,
                     "Could not read settings; using defaults without overwriting the file", e);
         }
+        ClientSendMessageEvents.ALLOW_CHAT.register(ColdNear::allowChat);
         ClientSendMessageEvents.MODIFY_CHAT.register(message -> ChatFormatter.format(message, settings));
     }
 }

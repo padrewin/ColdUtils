@@ -43,12 +43,13 @@ class ColdUtilsSettingsTest {
         assertEquals(0x00FFFF, loaded.espColor());
         assertEquals(64, loaded.espRange());
         assertEquals(0xFFFFFF, loaded.nameColor());
+        assertTrue(loaded.preserveServerNameColors());
     }
 
     @Test void allSettingsSurviveSavingAndReplacingAnExistingFile() throws Exception {
         Path file = directory.resolve("config/coldutils.properties");
         ColdUtilsSettings.DEFAULT.save(file);
-        ColdUtilsSettings chosen = new ColdUtilsSettings(false, true, false, true, false, false, 0x1234AB, 128, 0xFF0088);
+        ColdUtilsSettings chosen = new ColdUtilsSettings(false, true, false, true, false, false, 0x1234AB, 128, 0xFF0088, false);
         chosen.save(file);
         assertEquals(chosen, ColdUtilsSettings.load(file));
         try (var files = Files.list(file.getParent())) {
@@ -71,7 +72,7 @@ class ColdUtilsSettingsTest {
         for (String content : new String[]{"esp.enabled=maybe", "esp.names=invalid",
                 "esp.invisibleOnly=invalid", "esp.color=1000000", "esp.color=-1",
                 "esp.color=oops", "esp.range=0", "esp.range=257", "esp.range=NaN",
-                "esp.nameColor=1000000", "esp.nameColor=-1", "esp.nameColor=oops"}) {
+                "esp.nameColor=1000000", "esp.nameColor=-1", "esp.nameColor=oops", "esp.preserveServerNameColors=invalid"}) {
             Files.writeString(file, content);
             assertThrows(IllegalArgumentException.class, () -> ColdUtilsSettings.load(file), content);
             assertEquals(content, Files.readString(file));

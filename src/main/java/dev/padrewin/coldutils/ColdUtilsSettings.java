@@ -10,9 +10,15 @@ import java.util.Properties;
 
 public record ColdUtilsSettings(boolean enabled, boolean capitalization, boolean period,
                            boolean espEnabled, boolean espNames, boolean espInvisibleOnly,
-                           int espColor, int espRange, int nameColor) {
+                           int espColor, int espRange, int nameColor, boolean preserveServerNameColors) {
     public static final ColdUtilsSettings DEFAULT = new ColdUtilsSettings(true, true, true, false, false, true, 0x00FFFF, 64, 0xFFFFFF);
 
+    public ColdUtilsSettings(boolean enabled, boolean capitalization, boolean period,
+                             boolean espEnabled, boolean espNames, boolean espInvisibleOnly,
+                             int espColor, int espRange, int nameColor) {
+        this(enabled, capitalization, period, espEnabled, espNames, espInvisibleOnly,
+                espColor, espRange, nameColor, true);
+    }
     public ColdUtilsSettings(boolean enabled, boolean capitalization, boolean period) {
         this(enabled, capitalization, period, false, false, true, 0x00FFFF, 64, 0xFFFFFF);
     }
@@ -41,7 +47,7 @@ public record ColdUtilsSettings(boolean enabled, boolean capitalization, boolean
                 read(values, "esp.names", false), read(values, "esp.invisibleOnly", true),
                 Integer.parseInt(values.getProperty("esp.color", "00FFFF").strip().replaceFirst("^#", ""), 16),
                 Integer.parseInt(values.getProperty("esp.range", "64").strip()),
-                Integer.parseInt(values.getProperty("esp.nameColor", "FFFFFF").strip().replaceFirst("^#", ""), 16));
+                Integer.parseInt(values.getProperty("esp.nameColor", "FFFFFF").strip().replaceFirst("^#", ""), 16), read(values, "esp.preserveServerNameColors", true));
     }
 
     private static boolean read(Properties values, String name, boolean fallback) {
@@ -66,6 +72,7 @@ public record ColdUtilsSettings(boolean enabled, boolean capitalization, boolean
             values.setProperty("esp.color", String.format("%06X", espColor));
             values.setProperty("esp.range", Integer.toString(espRange));
             values.setProperty("esp.nameColor", String.format("%06X", nameColor));
+            values.setProperty("esp.preserveServerNameColors", Boolean.toString(preserveServerNameColors));
             try (Writer writer = Files.newBufferedWriter(temp)) {
                 values.store(writer, "ColdUtils - configurable through Mod Menu");
             }

@@ -19,7 +19,8 @@ public abstract class NameColorMixin {
             "getDisplayName(Lnet/minecraft/entity/Entity;)Lnet/minecraft/text/Text;"},
             at = @At("RETURN"), cancellable = true, require = 1)
     private void coldutils$nameColor(@Coerce Object entity, CallbackInfoReturnable<Object> cir) {
-        if (ColdUtils.settings().espNames() && PlayerEsp.matches(entity)) {
+        if (ColdUtils.settings().espNames() && !ColdUtils.settings().preserveServerNameColors()
+                && PlayerEsp.matches(entity)) {
             cir.setReturnValue(NameColor.apply(cir.getReturnValue(), ColdUtils.settings().nameColor()));
         }
     }

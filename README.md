@@ -1,4 +1,4 @@
-# ColdUtils 1.2.0
+# ColdUtils 1.2.2
 
 A client-side Fabric utility mod with configurable chat formatting and Player ESP.
 The Chat tab can capitalize outgoing messages and add a final period.
@@ -39,7 +39,8 @@ Open **Mods > ColdUtils > Configure > Player ESP**:
   outlines disabled. Turning this off restores normal Minecraft nameplate behavior.
 - **Only invisible players**: on by default; turn off to outline visible players too.
 - **Outline color**: RGB color picker, cyan by default.
-- **Player name color**: separate RGB color picker for the overhead name, white by default.
+- **Keep server name colors**: on by default; preserves the original server nameplate component, including prefix/suffix and HEX styling received by the client. Turn off to override the whole nameplate with one color.
+- **Player name color** (server colors off): separate RGB color picker for the overhead name, white by default.
 - **Range (blocks)**: 1–256 blocks, 64 by default, measured from your player.
 
 Click **Save & Done** to apply. The effect uses Minecraft's glowing silhouette,
@@ -55,7 +56,7 @@ sending the player entity cannot be detected.
 
 1. Install Fabric Loader for your Minecraft version.
 2. Install Fabric API, Mod Menu, and Cloth Config API (Fabric), using versions that match your game.
-3. Place `coldutils-1.2.0.jar` in your Minecraft instance's `mods` directory, replacing any older ColdUtils JAR.
+3. Place `coldutils-1.2.2.jar` in your Minecraft instance's `mods` directory, replacing any older ColdUtils JAR.
 
 The same ColdUtils JAR targets Minecraft 1.21.11 and the 26.x series.
 Minecraft 1.21.11 uses Java 21; the 26.x versions targeted here require Java 25.
@@ -85,7 +86,7 @@ Alternatively, with Maven installed, run:
 mvn package
 ```
 
-The compiled JAR is written to `target/coldutils-1.2.0.jar`.
+The compiled JAR is written to `target/coldutils-1.2.2.jar`.
 The project uses Maven and does not require a Minecraft remapping build step.
 
 ### Manual ESP verification (run on both 1.21.11 and your 26.x version)
@@ -104,3 +105,7 @@ The project uses Maven and does not require a Minecraft remapping build step.
 
 - [Website](https://github.com/padrewin/ColdUtils)
 - [Issues](https://github.com/padrewin/ColdUtils)
+
+## Nearby command
+
+Type .coldnear or .coldnear [radius] in chat. Radius is an integer from 1 to 256 blocks and defaults to 256. The local command counts other players loaded in the current client world within the 3D radius, including invisible players, independently of ESP settings. It never sends the command to the server. Server-side vanish entities not sent to the client cannot be counted. The response uses the ColdUtils blue gradient prefix and shows the chosen radius.
