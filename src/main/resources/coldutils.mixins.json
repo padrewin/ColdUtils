@@ -3,6 +3,6 @@
   "minVersion": "0.8",
   "package": "dev.padrewin.coldutils.mixin",
   "compatibilityLevel": "JAVA_21",
-  "client": ["EntityEspMixin", "PlayerNameMixin", "NameColorMixin"],
+  "client": ["EntityEspMixin", "PlayerNameMixin", "NameColorMixin", "ClientTickMixin", "KeyboardMixin", "HudMixin", "CameraMixin", "FreecamInputMixin", "FreecamTurnMixin", "FreecamHandMixin", "FreecamDropMixin", "FullbrightMixin"],
   "injectors": { "defaultRequire": 1 }
 }

@@ -23,7 +23,7 @@ public final class MenuAdapter implements LanguageAdapter {
                         return Proxy.newProxyInstance(factory.getClassLoader(), new Class<?>[]{factory},
                                 (instance, factoryMethod, parameters) -> {
                                     if (factoryMethod.getName().equals("create")) {
-                                        return SettingsScreen.create(parameters[0]);
+                                        return HubScreen.create(parameters[0]);
                                     }
                                     return objectMethod(instance, factoryMethod.getName(), parameters);
                                 });

@@ -11,7 +11,7 @@ import java.util.Properties;
 public record ColdUtilsSettings(boolean enabled, boolean capitalization, boolean period,
                            boolean espEnabled, boolean espNames, boolean espInvisibleOnly,
                            int espColor, int espRange, int nameColor, boolean preserveServerNameColors) {
-    public static final ColdUtilsSettings DEFAULT = new ColdUtilsSettings(true, true, true, false, false, true, 0x00FFFF, 64, 0xFFFFFF);
+    public static final ColdUtilsSettings DEFAULT = new ColdUtilsSettings(false, true, true, false, false, true, 0x00FFFF, 64, 0xFFFFFF);
 
     public ColdUtilsSettings(boolean enabled, boolean capitalization, boolean period,
                              boolean espEnabled, boolean espNames, boolean espInvisibleOnly,
@@ -42,7 +42,7 @@ public record ColdUtilsSettings(boolean enabled, boolean capitalization, boolean
         if (!Files.exists(file)) return DEFAULT;
         Properties values = new Properties();
         try (Reader reader = Files.newBufferedReader(file)) { values.load(reader); }
-        return new ColdUtilsSettings(read(values, "enabled", true), read(values, "capitalization", true),
+        return new ColdUtilsSettings(read(values, "enabled", false), read(values, "capitalization", true),
                 read(values, "period", true), read(values, "esp.enabled", false),
                 read(values, "esp.names", false), read(values, "esp.invisibleOnly", true),
                 Integer.parseInt(values.getProperty("esp.color", "00FFFF").strip().replaceFirst("^#", ""), 16),
