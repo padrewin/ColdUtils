@@ -46,7 +46,7 @@ public final class ColdNear {
                 for (Object player : (List<?>) players.invoke(world)) {
                     if (player != local && (double) distance.invoke(player, local) <= (double) radius * radius) count++;
                 }
-                a.send(local, "There are " + count + " player(s) near you.", " (" + radius + " blocks)");
+                a.send(local, "There are " + count + " player(s) near you.", radius + " blocks");
             } catch (ReflectiveOperationException | RuntimeException e) {
                 a.send(local, "Nearby lookup unavailable on this Minecraft version.");
                 throw e;
@@ -97,7 +97,11 @@ public final class ColdNear {
             append.invoke(result, colored("」", 0x555555));
             append.invoke(result, colored("» ", 0xAAAAAA));
             append.invoke(result, colored(body, 0xFFFFFF));
-            append.invoke(result, colored(suffix, 0x555555));
+            if (!suffix.isEmpty()) {
+                append.invoke(result, colored(" (", 0x555555));
+                append.invoke(result, colored(suffix, 0xAAAAAA));
+                append.invoke(result, colored(")", 0x555555));
+            }
             if (mapped) {
                 local.getClass().getMethod(method("net.minecraft.class_1657", "method_7353",
                         "(Lnet/minecraft/class_2561;Z)V", "displayClientMessage"), text, boolean.class)
